@@ -1,0 +1,42 @@
+### Indice de felicidad mundial ###
+
+##Trayendo el database
+```{r}
+library(htmltab)
+link1="https://es.wikipedia.org/wiki/%C3%8Dndice_global_de_felicidad"
+path1='//*[@id="mw-content-text"]/div[1]/table'
+datafeliz=htmltab(link1,path1)
+```
+
+##Limpiando la data
+
+#Nos quedamos con las variables que queremos
+```{r}
+datafeliz$`№`=NULL
+datafeliz$`Apoyo social`=NULL
+datafeliz$`Esperanza de años de vida saludable`=NULL
+datafeliz$`PIer cápita`=NULL
+datafeliz$`Libertad para tomar decisiones vitales`=NULL
+datafeliz$Generosidad=NULL
+datafeliz$`Percepción de la corrupción`=NULL
+```
+
+#Cambiamos nombre
+```{r}
+names(datafeliz)=c("pais","puntuacion")
+```
+
+#Cambios de character a numérico
+```{r}
+str(datafeliz)
+datafeliz$puntuacion=as.numeric(datafeliz$puntuacion)
+```
+#CSV
+```{r}
+write.csv(datafeliz,"datafeliz.csv", row.names = F)
+```
+
+
+
+
+
